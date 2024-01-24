@@ -4,12 +4,14 @@ using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
+    [Authorize]
     public class AccountCotroller : BaseApiController
     {
         private readonly DataContext _context;
@@ -20,6 +22,7 @@ namespace API.Controllers
             _context = context;
             _tokenService = tokenService;
         }
+     [AllowAnonymous]
         [HttpPost("register")] // POST: api/account/register?username=dave&password=pwd
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
@@ -44,7 +47,7 @@ namespace API.Controllers
         {
             throw new NotImplementedException();
         }
-
+        [AllowAnonymous]
         [HttpPost("Login")]
 public async Task<UserDto> Login(LoginDto loginDto)
 {
